@@ -33,18 +33,18 @@ This vignette is divided in 3 parts:
 
 1. A brief presentation of what the $far$ is and the context it is used in.
 
-1. Toys example to present how to use the 'farr' package.
+1. Toys example to present how to use the `farr` package.
 
-2. An example close to an actual climate application to give an idea of how this method can be applied in climate sciences. We will show how to repoduce part of the results of @naveau_revising_2018.
+2. An example close to an actual climate application to give an idea of how this method can be applied in climate sciences. We will show how to repoduce some results of @naveau_revising_2018.
 
 
-**Remark:** *This vignettes is originally made for me as a reminder of what I learned about the $far$ but I hope it could be also useful to others. This vignette reflects my level of understanding of the topic and thus it could contain mistakes or erroneous information (I hope not too big nor too many).
+**Remark:** *This vignettes is originally made for me as a reminder of what I learned about the $far$ but I hope it could be also useful to others. This vignette reflects my level of understanding of the topic and thus, it could contain mistakes or erroneous information (I hope not too big nor too many).
 Constructive comments or suggestions on possible ways to improve this document are welcome. For instance, it could be about better ways to explain or illustrate certain ideas or tips about more efficient ways to program in R. Corrections related to the English language are also welcome.*
 
 ## Event attribution, the FAR and the far.
 
 ### Attribution of climate change
-The $far$ was proposed by @naveau_revising_2018 as one possible tool to tackle the question of event attribution. Event attribution is a sub-field of the attribution of climate change. In the following, we will to provide a brief idea of what attribution of climate change is but for more detailed explanation see for instance @bindoff_detection_2013 or @stott_attribution_2016. The field of attribution of climate change aims to explain observed (or more precisely detected) changes in the climate and provide the causes of thoses changes. One particular focus of attribution of climate change is the effect of human activity on the climate. One way of assessing whether human activity has a significant causal impact on the climate is through the concept of counterfactuals [@hannart_causal_2016]. For instance, how different would the climate be today if human activity stayed at the same level as the pre-industrial ? By comparing the factual world ( the world as it is) with the counterfactual world (a world that could have been), one can assess the causal role of a given factor. 
+The $far$ was proposed by @naveau_revising_2018 as one possible tool to tackle the question of event attribution. Event attribution is a sub-field of the attribution of climate change. In the following, we will to provide a brief idea of what attribution of climate change is but for more detailed explanation see for instance @bindoff_detection_2013 or @stott_attribution_2016. The field of attribution of climate change aims to explain observed (or more precisely detected) changes in the climate system and provide the causes of thoses changes. One particular focus of attribution of climate change is the effect of human activity on the climate. One way of assessing whether human activity has a significant causal impact on the climate is through the concept of counterfactuals [@hannart_causal_2016]. For instance, how different would the climate be today if human activity stayed at the same level as the pre-industrial ? By comparing the factual world ( the world as it is) with the counterfactual world (a world that could have been), one can assess the causal role of a given factor. 
 
 In climate sciences, we often make the analogy that climate is a probabilistic distribution and weather is one realization of this distribution.
 
@@ -56,7 +56,7 @@ Following this analogy, the attribution of climate change from a causal counterf
 ![](images/mean_da2.png)
 
 ### (Extreme) event attribution
-With the same analogy, event attribution compares in this case the probability of having one event (defined as a set of possible outcomes of the distribution) occuring in the factual and counterfactual world. When talking about extreme event attribution, one would focus on the tail of the distribution. In this case, the class of event most usually studied in the litterature are thresholds exceedences, i.e. an event is to said to have occured when a univariate variable exceed a given threshold. 
+With the same analogy, event attribution compares in this case the probability of having one event (defined as a set of possible outcomes of the distribution) occuring in the factual and counterfactual world. When talking about extreme event attribution, one would focus on the tail of the distribution. In this case, the class of event most usually studied in the litterature are thresholds exceedence, i.e. an event is to said to have occured when a univariate variable exceeds a given threshold. 
 
 ![](images/extreme_da_3.png)
 
@@ -68,29 +68,29 @@ p_1 &= P( Z > RL) & \text{for the factual world}
 \end{align}
 
 ### The $FAR$ (Fraction of Attributable Risk)
-In climate science, the $FAR$ (Fraction of Attributable Risk) has been introduced by @stott_human_2004 to provide a synthetic number for this comparison:
+In climate sciences, the $FAR$ (Fraction of Attributable Risk) has been introduced by @stott_human_2004 to provide a synthetic number for this comparison:
 
 $$ FAR = \dfrac{p_1 - p_0}{p_1} = 1 - \dfrac{p_0}{p_1} $$
-Where $p_1$ corresponds to the probability of having the event in factual world and $p_0$ the probability of having the same event in conterfactual world. When the $FAR$is significatively different from zero, it means that the conjonction of factors that were "added" in the factual world with respect to the counterfactual world has a causal effect on the event of interest. 
+where $p_1$ corresponds to the probability of having the event in factual world and $p_0$ the probability of having the same event in conterfactual world. When the $FAR$is significatively different from $0$, it means that the conjonction of factors that were "added" in the factual world with respect to the counterfactual world has a causal effect on the event of interest. 
 
-For instance, if we were interesting in the event that the annual average temperature over exceeding 40 degrees and we want to assess the causal role of anthropogenic forcings, we would compare the probability of having this event in our factual world and the probability of having the same event in an idealized, counterfactual world were the anthorpogic forcings remained null. If the $FAR$ were to be significatively different from 0, we would deduce that anthropogenic forcings have a causal effect on having annual average temperature above 40 degrees in Europe.
+For instance, if we were interesting in the event that the annual average temperature over exceeding $40$ degrees and we want to assess the causal role of anthropogenic forcings, we would compare the probability of having this event in our factual world and the probability of having the same event in an idealized, counterfactual world were the anthorpogic forcings remained null. If the $FAR$ were to be significatively different from 0, we would deduce that anthropogenic forcings have a causal effect on having annual average temperature above 40 degrees in Europe.
 
-@hannart_causal_2016 mentionned that the $FAR$ can be also interpreted as the probability of necessary causation in Pearl's probabilistic causal theory [@pearl_probabilities_1999] 
+@hannart_causal_2016 also note that $\max(FAR, 0)$ can be also interpreted as the probability of necessary causation in Pearl's probabilistic causal theory [@pearl_probabilities_1999] 
 
 
 ### The $far$ (fraction of attributable risk for records)
 
-@naveau_revising_2018 presents statistical methods to estimate the FAR for a different class of events: records.
+@naveau_revising_2018 present statistical methods to estimate the FAR for a different class of events: records.
 
 #### Records
 
-@naveau_revising_2018 follows the definition of records provided in @resnick_extreme_1987.
+@naveau_revising_2018 follow the definition of records provided in @resnick_extreme_1987.
 For a time-serie $\mathbf{Y} = (Y_1, Y_2, \ldots, Y_T)$ a new record is broken at time $r$ if the observed value  $Y_r$ is strictly higher than all previous observed values:
 $$ Y_r > \max(Y_1, \ldots, Y_{r-1})$$
 
 In particular, when the random variables $Y_t$ are independently and identically distributed ($i.i.d.$), the probability of observing a record at time $r$ is:
 $$ P \big[Y_r > \max(Y_1, \ldots, Y_{r-1})\big] =  \dfrac{1}{r} $$
-For $i.i.d$ variables, as we could have intuitively guessed, the longer the time-series, the harder (less likely) it is to break a new record. 
+For $i.i.d.$ variables, as we could have intuitively guessed, the longer the time-series, the harder (less likely) it is to break a new record. 
 
 #### Record events in the factual and counterfactual worlds
 
@@ -103,18 +103,18 @@ Z_r &> \max(X_1, \ldots, X_{r-1}) & \text{for the factual world}
 
 When the climate is only driven by natural forcings, it is sometimes reasonnable to assume that the climate in the counterfactual world is stationnary and that the time-series $X$ is also stationnary. If we furthermore assume that random variables $X_t$ are $i.i.d.$, then we directly have the probably of having a record after a sequence of length $r-1$ in the counterfactual world:
 $$ p_{0,r}  =  P\big[X_r > \max(X_1, \ldots, X_{r-1})\big] =  \dfrac{1}{r} $$
-to obtain the $FAR$ for records, we just need to estime to estimate $p_{1,r}$: 
+Then, to obtain the $FAR$ for records, we just need to estime to estimate $p_{1,r}$: 
 $$ p_{1,r}  =  P\big[Z_r > \max(X_1, \ldots, X_{r-1})\big] $$
-which corresponds to the probability that an a realization of $Z_r$ in the factual world have been a record in the counterfactual world if $r-1$ values of $X_r$ where already observed.
-By comparing $p_{1,r}$ and $p_{0,r}$, one can assess whether human activity has a causal effect on having a record after a sequence of length $r-1$.
+which corresponds to the probability that an a realization of $Z_r$ in the factual world have been a record in the counterfactual world if $(r-1)$ values of $X_r$ where already observed.
+By comparing $p_{1,r}$ and $p_{0,r}$, one can assess whether human activity has a causal effect on having a record after a sequence of length $(r-1)$.
 
 Finally, the fraction of attributable risk for a record over a sequence of length $r-1$ is:
 $$ far(r) = 1 - \dfrac{p_{0,r}} {p_{1,r}} $$
 
 #### Statistical inference for $p_{1,r}$ and the far
 
-@naveau_revising_2018 provides a statiscal procedure to estimate $p_1,r$ which then leads to an estimation of the $far$ for records and its confidence interval.
-The different elements of this procedure are described in the table below. We only want to provide a general idea of how the method is build. For the complete explanation and all the proofs, please refer to @naveau_revising_2018 .
+@naveau_revising_2018 provide a statiscal procedure to estimate $p_1,r$ which then leads to an estimation of the $far$ for records and its confidence interval.
+The different elements of this procedure are described in the table below. We only want to provide a general idea of how the method is built. For the complete explanation and all the proofs, please refer to @naveau_revising_2018 .
 
 ![](images/far_inference_v2.png)
 
@@ -129,18 +129,18 @@ Moreover, if the random variable $W = -log\big(G(Z)\big)$ follows an exponential
 To estimate $\theta$, we use the fact that $\theta$ can be expressed as a function of $p_{1,2}$ and that $p_{1,2}=  \mathbb{E}\big(G(Z)\big)$ can be 
 easily estimated by its empirical counterpart: 
 $$ \hat{p}_{1,2} = \dfrac{1}{n}\sum_{i = 1}^{n}\mathbb{G}_m(Z_i)$$
-@naveau_revising_2018 shows that this estimator is asymptotically normal. Then,  $\hat{p}_{1,2}$ can be used to estimate $\theta$. The asympotic gaussianity
+@naveau_revising_2018 show that this estimator is asymptotically normal. Then,  $\hat{p}_{1,2}$ can be used to estimate $\theta$. The asympotic gaussianity
 of $\hat\theta$ can be derived from the asymptotic properties of $\hat{p}_{1,2}$ and the [delta-method](https://en.wikipedia.org/wiki/Delta_method). In the same way, one can build an estimator for $far(r)$ from $\hat\theta$ and deduce its asymptotic gaussianity with the delta method.
 
 In practice, one needs to first check whether the assumption that $W = -log\big(G(Z)\big)$ follows an exponential distribution is reasonable. $W$ being not directly observed, an empirical estimate of $W$ is used:
 $$ \hat{W_i} = - \log \hat{G}_m(Z_i)$$
-where $\hat{G}_m$ is a kernel empirical estimate of the CDF of $X$, $G$.
-Then the Cox and Oakes [@cox_d_analysis_1984] test is used asses whether $\hat{W_i}$ are distributed according to an exponential distribution. 
+where $\hat{G}_m$ is a kernel empirical estimate of the CDF of $X$.
+Then the Cox and Oakes [@cox_d_analysis_1984] test is used to assess whether $\hat{W_i}$ are distributed according to an exponential distribution. 
 
 the `farr` package implements this procedure for the estimation of the $far$, the fraction of attributable risk for records. In the next part, we will show how to use the `farr` package on idealized examples.
 
 
-## Toy Example
+## Toy examples
 
 In this part, we will use the \code{farr} package to compute the fraction of attributable risk for records on three idealized cases described in @naveau_revising_2018. 
 For this three idealized cases, the variable $W$ follows an exponential distribution. Additionaly, the theoretical values for the $far$ are also known for those three cases.
@@ -169,7 +169,7 @@ library(fields)
 library(maps)
 ```
 
-Just in case, I provide the session information for the sake of reproducibility.
+Just in case, we provide the session information for the sake of reproducibility.
 
 #### Session information
 ```{r session_info}
@@ -285,7 +285,7 @@ and it returns an object of class `("farrfit_emp", "farrfit")`.
 It is a list containing the following elements: 
  
  - `rp` the return periods for which the $far$ is estimated.
- -  `farr_hat` the estimate of the $far$ for each return period `rp`.
+ - `farr_hat` the estimate of the $far$ for each return period `rp`.
  - `sigma_farr_hat` the standard deviation of the estimator of the $far$ assuming asymptotic gaussianity.
  
 ```{r gumble_far_fit_nonpara, fig.height=5, fig.align="center"}
@@ -308,7 +308,7 @@ The counterfactual variable $X$ follows a Frechet distribution with CDF:
 $$G(x) = \exp(-x^{-\frac{1}{\xi}})$$
 and the factual variable $Z$ is defined as:
 $$ Z = \sigma X$$
-with $x > 0$ $\xi > 0$ and $\sigma > 0$.
+with $x > 0$, $\xi > 0$ and $\sigma > 0$.
 
 This implies that:
 
@@ -420,7 +420,6 @@ sigma <-  1.1
 mu <- (1 - sigma) / (-xi)
 x = rgev(size, loc = 0, scale = 1, shape = xi)
 z = rgev(size, loc = mu, scale =  sigma, shape = xi)
-z = mu  + sigma * rgev(size, loc = 0, scale = 1, shape = xi)
 ```
 
 #### Fit of $\theta$
@@ -435,13 +434,13 @@ ecdf(theta_fit)
 qqplot(theta_fit)
 ```
 
-We see that for the Weibull-EVT type distribution, the Cox and Oakes test reject the null hypothesis that $W$ (more precisely $\hat{W}$) follows an exponential distribution. This is an unexepected results since in theory for the Weibull-EVT distribution $W$ follows an exponential distribution.
-In this case, it is our estimation of the $W$ and more precisely the estimation of $G$, the CDF of $X$, that is at fault. Indeed if we replace our empirical estimator of $G$ by the true $G$, the Cox and Oakes test does not reject anymore the null hypothesis that $W$ follows an exponential distribution.
+**Remark:** For the Weibull-EVT type distribution, we see with the QQ-plot that values of the upper tail of $\hat{W}$ are higher than the expected values if $\hat{W}$ were to follow an exponential distribution. This is a bit unexpected results since in theory for the Weibull-EVT distribution, $W$ follows an exponential distribution. In this case, it is related to the fact that we do not perform the test directly on $W$ but on its estimate $\hat{W}$. Indeed, our empirical estimations of $G$, the CDF of $X$ and $W$ exhibit biases. If we replace our empirical estimator of $G$ by the true $G$, the p-value of the Cox and Oakes test is bigger and it is harder to reject with confidence the null hypothesis that $W$ follows an exponential distribution.
+
 
 ```{r weibull_W_true, fig.height=4.5, fig.width=4, fig.align="center"}
 # True value of W
 W = -log(pgev(z, shape = xi))
-# Kolmogorov-Smirnov test of adequation with an exponential distribution
+# Kolmogorov-Smirnov test for an exponential distribution
 ks.test(W, "pexp", rate = 1/mean(W))
 # Cox and Oakes test of exponentiality
 CoxOakes(W)
@@ -499,7 +498,7 @@ legend("topright",
 ``` 
 
 The parametric estimation gives satisfying results when having 500 points for each $X$ and $Z$. 
-The non-parametric estimate  of the $far$ does not "catch" the theoretical value of the $far$ with its 90%-confidence interval for return periods $r$ higher than 15. 
+The non-parametric estimate  of the $far$ does not performs as good as the parametric estimation. The theoretical $far$, for a return period $r = 20$, does not fall within the 90%-confidence interval. 
 The non-parametric estimation is improved when we increase the number of points, for instance to 1000 points for both  $X$ and $Z$.
 
 ## A climate case study
@@ -512,7 +511,7 @@ As in @naveau_revising_2018, we select data of annual maxima of temperature dail
 
 For the counterfactual world, we use the corresponding r1i1p1 run from the historical natural experiment (historicalNAT) in which the anthropogenic contributions in the climate forcings have been removed. With only natural forcings, we assume that the climate system is stationary for the full length of the simulations (1850-2012). Hence, all available data are used in this case.
 
-Contrary to @naveau_revising_2018, we will only perform the analysis over the mediterranean region  simply to limit reasonnably the necessary computing time.
+Contrary to @naveau_revising_2018, we will only perform the analysis over the mediterranean region, simply to limit reasonnably the necessary computing time.
 
 All CMIP5 data are publicly available, for instance through the [ESGF-COG nodes](https://www.earthsystemcog.org/projects/cog/).
 
@@ -669,7 +668,7 @@ a majority of cases. At a significance level of 5%, the test was rejected for 20
 
 #### Estimation of the $far$.
 
-In the following, we will estimate the value of the $far$ for a return period $r_\theta = 1 + 1 / \sqrt\theta$.
+In the following, we will estimate the value of the $far$ for a return period $r_\theta = 1 + 1 / \sqrt\theta$. In @naveau_revising_2018, this specific return period was chosen because in theory, under the null hypothesis that $W$ follows an exponential distribution, this is the return period that maximize the probability of necessary and sufficient causation [@hannart_causal_2016].
 
 ```{r far_fit, echo=TRUE, include = TRUE, results="hide", message = FALSE, warning = FALSE, cache=TRUE}
 
@@ -807,7 +806,7 @@ image.plot(x = lon, y = lat,
 lines(worldmap)
 ```
 
-the results with the non-parametric estimation of the $far$ is similar those obtained with the parametric method when making the hypothesis that $W$ follows an exponential distribution. The spatial distribution of the $far$ is similar and in both cases, none of the estimated $far$ is shown to be significantly different from $0$, meaning that there is no clear difference in terms of records of yearly $tasmax$ between the factual world and counterfactual world.
+The results with the non-parametric estimation of the $far$ is similar those obtained with the parametric method when making the hypothesis that $W$ follows an exponential distribution. The spatial distribution of the $far$ is similar and in both cases, none of the estimated $far$ is shown to be significantly different from $0$, meaning that there is no clear difference in terms of records of yearly $tasmax$ between the factual world and counterfactual world.
 
 ## Conclusion
 In this vignette, we wanted to provide a quick presentation of the $far$, the fraction of attributable risk for records and show how studies of the $far$ can be performed using the R package `farr`. We hope that we managed to give a feel on how the package work and how it could be applied in the context of climate sciences.
