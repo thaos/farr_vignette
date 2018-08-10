@@ -33,7 +33,7 @@ This vignette is divided in 3 parts:
 
 1. A brief presentation of what the $far$ is and the context it is used in.
 
-1. Toys example to present how to use the `farr` package.
+1. Toy examples to present how to use the `farr` package.
 
 2. An example close to an actual climate application to give an idea of how this method can be applied in climate sciences. We will show how to repoduce some results of @naveau_revising_2018.
 
@@ -56,7 +56,7 @@ Following this analogy, the attribution of climate change from a causal counterf
 ![](images/mean_da2.png)
 
 ### (Extreme) event attribution
-With the same analogy, event attribution compares in this case the probability of having one event (defined as a set of possible outcomes of the distribution) occuring in the factual and counterfactual world. When talking about extreme event attribution, one would focus on the tail of the distribution. In this case, the class of event most usually studied in the litterature are thresholds exceedence, i.e. an event is to said to have occured when a univariate variable exceeds a given threshold. 
+With the same analogy, event attribution compares in this case the probability of having one event (defined as a set of possible outcomes of the distribution) occuring in the factual and counterfactual world. When talking about extreme event attribution, one would focus on the tail of the distribution. In this case, the class of event most usually studied in the litterature are threshold exceedences, i.e. an event is to said to have occured when a univariate variable exceeds a given threshold. 
 
 ![](images/extreme_da_3.png)
 
@@ -71,7 +71,7 @@ p_1 &= P( Z > RL) & \text{for the factual world}
 In climate sciences, the $FAR$ (Fraction of Attributable Risk) has been introduced by @stott_human_2004 to provide a synthetic number for this comparison:
 
 $$ FAR = \dfrac{p_1 - p_0}{p_1} = 1 - \dfrac{p_0}{p_1} $$
-where $p_1$ corresponds to the probability of having the event in factual world and $p_0$ the probability of having the same event in conterfactual world. When the $FAR$is significatively different from $0$, it means that the conjonction of factors that were "added" in the factual world with respect to the counterfactual world has a causal effect on the event of interest. 
+where $p_1$ corresponds to the probability of having the event in factual world and $p_0$ the probability of having the same event in conterfactual world. When the $FAR$ is significatively different from $0$, it means that the conjonction of factors that were "added" in the factual world with respect to the counterfactual world has a causal effect on the event of interest. 
 
 For instance, if we were interesting in the event that the annual average temperature over exceeding $40$ degrees and we want to assess the causal role of anthropogenic forcings, we would compare the probability of having this event in our factual world and the probability of having the same event in an idealized, counterfactual world were the anthorpogic forcings remained null. If the $FAR$ were to be significatively different from 0, we would deduce that anthropogenic forcings have a causal effect on having annual average temperature above 40 degrees in Europe.
 
@@ -108,7 +108,7 @@ $$ p_{1,r}  =  P\big[Z_r > \max(X_1, \ldots, X_{r-1})\big] $$
 which corresponds to the probability that an a realization of $Z_r$ in the factual world have been a record in the counterfactual world if $(r-1)$ values of $X_r$ where already observed.
 By comparing $p_{1,r}$ and $p_{0,r}$, one can assess whether human activity has a causal effect on having a record after a sequence of length $(r-1)$.
 
-Finally, the fraction of attributable risk for a record over a sequence of length $r-1$ is:
+Finally, the fraction of attributable risk for a record over a sequence of length $(r-)1$ is:
 $$ far(r) = 1 - \dfrac{p_{0,r}} {p_{1,r}} $$
 
 #### Statistical inference for $p_{1,r}$ and the far
@@ -186,7 +186,7 @@ with $x$ real, $\mu \geq 0$.
 
 This implies that:
 
-- $X$ follows a Gumbel distribution with a location parameter equal to $0$ and  a scale parameter equal to $1$.
+- $X$ follows a Gumbel distribution with a location parameter equal to $0$ and a scale parameter equal to $1$.
 - $Z$ follows a Gumbel distribution with a location parameter equal to $\mu$ and  a scale parameter equal to $1$.
 
 #### Simulation of $X$ and $Z$
@@ -235,7 +235,7 @@ From the estimate of $\theta$, we estimate $far(r)$ for different values of $r$ 
  - `sigma_theta_hat` the value of the estimated standard devitation of $\hat\theta$.
  - `rp` a vector of return periods for which the $far$ is to be computed.
 
-The function returns an object of class `("farrfit_emp", "farrfit")`.
+The function returns an object of class `("farrfit_exp", "farrfit")`.
 It is a list containing the following elements:
 
  - `rp` the return periods for which the $far$ is estimated.
@@ -275,13 +275,13 @@ $W$ follows an exponential distribution, one can use the non-parametric estimati
 of the $far$ described in the annexes of [@naveau_revising_2018]. 
 
 This package provides this method of estimation through the function 
-`estim_farr.emp`. It takes as arguments:
+`estim_farr.np`. It takes as arguments:
 
  - `x` a vector of realizations of the variable of interest in the counterfactual world.
  - `z` a vector of realizations of the variable interest in the factual world.
  - `rp` the return periods for which the $far$ is to be estimated.
 
-and it returns an object of class `("farrfit_emp", "farrfit")`. 
+and it returns an object of class `("farrfit_np", "farrfit")`. 
 It is a list containing the following elements: 
  
  - `rp` the return periods for which the $far$ is estimated.
@@ -290,9 +290,9 @@ It is a list containing the following elements:
  
 ```{r gumble_far_fit_nonpara, fig.height=5, fig.align="center"}
 
-farr_fit.emp <- estim_farr.emp(x = x, z = z, rp = rp) 
-print(farr_fit.emp)
-plot(farr_fit.emp, lwd = 2, main = "non-parametric far the for shifted Gumble")
+farr_fit.np <- estim_farr.np(x = x, z = z, rp = rp) 
+print(farr_fit.np)
+plot(farr_fit.np, lwd = 2, main = "non-parametric far the for shifted Gumble")
 lines(rp, gfarr, col = "red", lty = 1, lwd = 2)
 abline(h = glim, col = "red", lty = 2, lwd = 2)
 legend("bottomright",
@@ -365,8 +365,8 @@ farr_fit.exp <- estim_farr.wexp(theta_hat = theta_fit$theta_hat, sigma_theta_hat
 print(farr_fit.exp)
 
 # Non-parametric estimation
-farr_fit.emp <- estim_farr.emp(x = x, z = z, rp = rp) 
-print(farr_fit.emp)
+farr_fit.np <- estim_farr.np(x = x, z = z, rp = rp) 
+print(farr_fit.np)
 
 par(mfrow = c(1, 2 ))
 plot(farr_fit.exp, lwd = 2, main = "parametric far \n for the inflated Frechet")
@@ -377,7 +377,7 @@ legend("bottomright",
        col = c("black", "red", "red"),
        lwd = 2,
        lty = c(1, 1, 2))
-plot(farr_fit.emp, lwd = 2, main = "non-parametric far \n for the inflated Frechet")
+plot(farr_fit.np, lwd = 2, main = "non-parametric far \n for the inflated Frechet")
 lines(rp, ffarr, col = "red", lty = 1, lwd = 2)
 abline(h = flim, col = "red", lty = 2, lwd = 2)
 legend("bottomright",
@@ -475,8 +475,8 @@ farr_fit.exp <- estim_farr.wexp(theta_hat = theta_fit$theta_hat, sigma_theta_hat
 print(farr_fit.exp)
 
 # Non-parametric estimation
-farr_fit.emp <- estim_farr.emp(x = x, z = z, rp = rp) 
-print(farr_fit.emp)
+farr_fit.np <- estim_farr.np(x = x, z = z, rp = rp) 
+print(farr_fit.np)
 
 par(mfrow = c(1, 2 ))
 plot(farr_fit.exp, lwd = 2, main = "parametric far \n for Weibull-EVT type distribution")
@@ -487,7 +487,7 @@ legend("topright",
        col = c("black", "red", "red"),
        lwd = 2,
        lty = c(1, 1, 2))
-plot(farr_fit.emp, lwd = 2, main = "non-parametric far \n for Weibull-EVT type distribution")
+plot(farr_fit.np, lwd = 2, main = "non-parametric far \n for Weibull-EVT type distribution")
 lines(rp, wfarr, col = "red", lty = 1, lwd = 2)
 abline(h = wlim, col = "red", lty = 2, lwd = 2)
 legend("topright",
@@ -498,7 +498,7 @@ legend("topright",
 ``` 
 
 The parametric estimation gives satisfying results when having 500 points for each $X$ and $Z$. 
-The non-parametric estimate  of the $far$ does not performs as good as the parametric estimation. The theoretical $far$, for a return period $r = 20$, does not fall within the 90%-confidence interval. 
+The non-parametric estimate of the $far$ does not performs as good as the parametric estimation. The theoretical $far$, for a return period $r = 20$, does not fall within the 90%-confidence interval. 
 The non-parametric estimation is improved when we increase the number of points, for instance to 1000 points for both  $X$ and $Z$.
 
 ## A climate case study
@@ -749,7 +749,7 @@ To finish, let us that we can also estimate the $far$ non parametrically. For th
 ```{r nonpara_far_fit, echo=TRUE, include = TRUE, results="hide", message = FALSE, warning = FALSE, cache=TRUE}
 
 nonpara_farr_estimates <- mapply(function(ilon, ilat){
-                                 estim_farr.emp(x = tasmax_nat[ilon, ilat, ],
+                                 estim_farr.np(x = tasmax_nat[ilon, ilat, ],
                                                 z = tasmax_all[ilon, ilat, ],
                                                 rp = max(rp_mat[ilon, ilat], 2))
                                  }, ilon = ilonlat$lon, ilat = ilonlat$lat, 
@@ -809,6 +809,7 @@ lines(worldmap)
 The results with the non-parametric estimation of the $far$ is similar those obtained with the parametric method when making the hypothesis that $W$ follows an exponential distribution. The spatial distribution of the $far$ is similar and in both cases, none of the estimated $far$ is shown to be significantly different from $0$, meaning that there is no clear difference in terms of records of yearly $tasmax$ between the factual world and counterfactual world.
 
 ## Conclusion
+
 In this vignette, we wanted to provide a quick presentation of the $far$, the fraction of attributable risk for records and show how studies of the $far$ can be performed using the R package `farr`. We hope that we managed to give a feel on how the package work and how it could be applied in the context of climate sciences.
 
 Any questions, comments or suggestions are welcome and can be sent at sthao@lsce.ipsl.fr
